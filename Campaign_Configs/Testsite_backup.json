@@ -1,0 +1,2753 @@
+{
+    "title": "Equipment Configuration",
+    "PASSWD": "cb9a1b515cb629c7b1f7e4e9acc64112a21fd81c3649eb5893b53ef687feca27",
+    "description": "Base config for tests with MCS",
+    "README": "Comments in json files are not allowed, so any meta information should be included here.",
+    "computers": [
+        {
+            "name": "Main",
+            "ip": "192.168.1.8",
+            "type": "manager-only"
+        },
+        {
+            "name": "exui0",
+            "ip": "192.168.1.2",
+            "type": "manager"
+        },
+        {
+            "name": "exui1",
+            "ip": "192.168.1.3",
+            "type": "manager"
+        },
+        {
+            "name": "exui3",
+            "ip": "192.168.1.5",
+            "type": "worker"
+        },
+        {
+            "name": "exui4",
+            "ip": "192.168.1.6",
+            "type": "worker"
+        }
+    ],
+    "computers_disabled": [],
+    "DNS": {
+        "useHTTPS": "True",
+        "subdomain": "",
+        "maindomain": "exui.de",
+        "email": "info@exui.de",
+        "_acme-challenge": "5o_f1wyt_kZrcco0_UrAyiPd7rOYbpKPwcBer2z2Ybg",
+        "internal-ips": [
+            "127.0.0.1",
+            "10.0.0.0/24",
+            "192.168.0.0/24",
+            "192.168.1.0/24"
+        ],
+        "forwarders": [
+            "8.8.8.8",
+            "8.8.8.8"
+        ]
+    },
+    "map": {
+        "MapFileName": "europe.mbtiles",
+        "useLocalMapserver": "False",
+        "Bounds": [
+            0,
+            40,
+            31,
+            90
+        ]
+    },
+    "Video": [
+        {
+            "numreplica": 1,
+            "name": "IP_Cams",
+            "type": "video_IP",
+            "description": "Low latency video stream",
+            "http_port": 8082,
+            "Port": 8102,
+            "additional_URL": "/stream/player/",
+            "streams": [
+                {
+                    "CAM1": {
+                        "name": "PadCam_1",
+                        "URL_name": "CAM1",
+                        "url": "rtsp://admin:electronics1@192.168.1.20:554/cam/realmonitor?channel=1&subtype=0"
+                    }
+                },
+                {
+                    "CAM2": {
+                        "name": "PadCam_2",
+                        "URL_name": "CAM2",
+                        "url": "rtsp://admin:electronics1@192.168.1.21:554/cam/realmonitor?channel=1&subtype=0"
+                    }
+                }
+            ]
+        }
+    ],
+    "datasources": [
+        {
+            "name": "MCS",
+            "key": "MCS",
+            "type": "opcua",
+            "description": "Monitor sensors and control actuators attached to the MCS",
+            "openport": 10100,
+            "Source": {
+                "ip": "192.168.1.9",
+                "port": 4840
+            },
+            "datapoints": [
+                {
+                    "name": "Thermocouples",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "T_F_MF",
+                            "name": "T_F_MF",
+                            "key": "TC1",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 0
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "T_LO_MF",
+                            "name": "T_LO_MF",
+                            "key": "TC2",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 1
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC3",
+                            "name": "TC3",
+                            "key": "TC3",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 2
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC4",
+                            "name": "TC4",
+                            "key": "TC4",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 3
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC5",
+                            "name": "TC5",
+                            "key": "TC5",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 4
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC6",
+                            "name": "TC6",
+                            "key": "TC6",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 5
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC7",
+                            "name": "TC7",
+                            "key": "TC7",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 6
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC8",
+                            "name": "TC8",
+                            "key": "TC8",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 7
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC9",
+                            "name": "TC9",
+                            "key": "TC9",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 8
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC10",
+                            "name": "TC10",
+                            "key": "TC10",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 9
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC11",
+                            "name": "TC11",
+                            "key": "TC11",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 10
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC12",
+                            "name": "TC12",
+                            "key": "TC12",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 11
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC13",
+                            "name": "TC13",
+                            "key": "TC13",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 12
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC14",
+                            "name": "TC14",
+                            "key": "TC14",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 13
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC15",
+                            "name": "TC15",
+                            "key": "TC15",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 14
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "TC16",
+                            "name": "TC16",
+                            "key": "TC16",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:thermocouples",
+                                "index": 15
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Sensors",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "P_LO_T",
+                            "name": "P_LO_T",
+                            "key": "S1",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_voltage_sensors",
+                                "index": 0
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "F_THRUST",
+                            "name": "F_THRUST",
+                            "key": "S2",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_voltage_sensors",
+                                "index": 1
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P_F_REG",
+                            "name": "P_F_REG",
+                            "key": "S3",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_voltage_sensors",
+                                "index": 2
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "S4",
+                            "name": "S4",
+                            "key": "S4",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_voltage_sensors",
+                                "index": 3
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "S5",
+                            "name": "S5",
+                            "key": "S5",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_voltage_sensors",
+                                "index": 4
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "S6",
+                            "name": "S6",
+                            "key": "S6",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_voltage_sensors",
+                                "index": 5
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "S7",
+                            "name": "S7",
+                            "key": "S7",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_voltage_sensors",
+                                "index": 6
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "S8",
+                            "name": "S8",
+                            "key": "S8",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_voltage_sensors",
+                                "index": 7
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P_CC_1",
+                            "name": "P_CC_1",
+                            "key": "S9",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 0
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P_CC_2",
+                            "name": "P_CC_2",
+                            "key": "S10",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 1
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P_LO_MF",
+                            "name": "P_LO_MF",
+                            "key": "S11",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 2
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P_LO_REG",
+                            "name": "P_LO_REG",
+                            "key": "S12",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 3
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_Mdot",
+                            "name": "LO_Mdot",
+                            "key": "S13",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 4
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "T_LO_M",
+                            "name": "T_LO_M",
+                            "key": "S14",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 5
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P_HP",
+                            "name": "P_HP",
+                            "key": "S15",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 6
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P_F_DMF",
+                            "name": "P_F_DMF",
+                            "key": "S16",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 7
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P_F_MF",
+                            "name": "P_F_MF",
+                            "key": "S17",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 8
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P_F_T",
+                            "name": "P_F_T",
+                            "key": "S18",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 9
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "F_Mdot",
+                            "name": "F_Mdot",
+                            "key": "S19",
+                            "opcua": {
+                                "path": "/Objects/1:sensors/1:sensor_values/1:calibrated_current_sensors",
+                                "index": 10
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Valves_Realstate",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "F_EV",
+                            "name": "F_EV",
+                            "key": "V1",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 0
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "F_MV",
+                            "name": "F_MV",
+                            "key": "V2",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 1
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "F_DV",
+                            "name": "F_DV",
+                            "key": "V3",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 2
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_EV",
+                            "name": "LO_EV",
+                            "key": "V4",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 3
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_MV",
+                            "name": "LO_MV",
+                            "key": "V5",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 4
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_DV",
+                            "name": "LO_DV",
+                            "key": "V6",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 5
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_FV",
+                            "name": "LO_FV",
+                            "key": "V7",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 6
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HORNY",
+                            "name": "HORNY",
+                            "key": "V8",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 7
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LP_PV",
+                            "name": "LP_PV",
+                            "key": "V9",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 8
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HP_MV",
+                            "name": "HP_MV",
+                            "key": "V10",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 9
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HP_DV",
+                            "name": "HP_DV",
+                            "key": "V11",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 10
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HP_FV",
+                            "name": "HP_FV",
+                            "key": "V12",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 11
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_PV",
+                            "name": "LO_PV",
+                            "key": "V13",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 12
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "F_PV",
+                            "name": "F_PV",
+                            "key": "V14",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 13
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V15",
+                            "name": "V15",
+                            "key": "V15",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 14
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V16",
+                            "name": "V16",
+                            "key": "V16",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 15
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V17",
+                            "name": "V17",
+                            "key": "V17",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 16
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V18",
+                            "name": "V18",
+                            "key": "V18",
+                            "opcua": {
+                                "path": "/Objects/1:observe/1:real_valve_states",
+                                "index": 17
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Valves",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "F_EV",
+                            "name": "F_EV",
+                            "key": "V1",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 0
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "F_MV",
+                            "name": "F_MV",
+                            "key": "V2",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 1
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "F_DV",
+                            "name": "F_DV",
+                            "key": "V3",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 2
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_EV",
+                            "name": "LO_EV",
+                            "key": "V4",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 3
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_MV",
+                            "name": "LO_MV",
+                            "key": "V5",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 4
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_DV",
+                            "name": "LO_DV",
+                            "key": "V6",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 5
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_FV",
+                            "name": "LO_FV",
+                            "key": "V7",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 6
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HORNY",
+                            "name": "HORNY",
+                            "key": "V8",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 7
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LP_PV",
+                            "name": "LP_PV",
+                            "key": "V9",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 8
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HP_MV",
+                            "name": "HP_MV",
+                            "key": "V10",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 9
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HP_DV",
+                            "name": "HP_DV",
+                            "key": "V11",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 10
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HP_FV",
+                            "name": "HP_FV",
+                            "key": "V12",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 11
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LO_PV",
+                            "name": "LO_PV",
+                            "key": "V13",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 12
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "F_PV",
+                            "name": "F_PV",
+                            "key": "V14",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 13
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V15",
+                            "name": "V15",
+                            "key": "V15",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 14
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V16",
+                            "name": "V16",
+                            "key": "V16",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 15
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V17",
+                            "name": "V17",
+                            "key": "V17",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 16
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V18",
+                            "name": "V18",
+                            "key": "V18",
+                            "opcua": {
+                                "path": "/Objects/1:manual_control/1:valve_states",
+                                "index": 17
+                            },
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "K",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "Controlls": {
+                "Inputs": [
+                    {
+                        "name": "Valves",
+                        "type": "folder",
+                        "values": [
+                            {
+                                "name": "F_EV",
+                                "key": "V1",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 0
+                                }
+                            },
+                            {
+                                "name": "F_MV",
+                                "key": "V2",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 1
+                                }
+                            },
+                            {
+                                "name": "F_DV",
+                                "key": "V3",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 2
+                                }
+                            },
+                            {
+                                "name": "LO_EV",
+                                "key": "V4",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 3
+                                }
+                            },
+                            {
+                                "name": "LO_MV",
+                                "key": "V5",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 4
+                                }
+                            },
+                            {
+                                "name": "LO_DV",
+                                "key": "V6",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 5
+                                }
+                            },
+                            {
+                                "name": "LO_FV",
+                                "key": "V7",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 6
+                                }
+                            },
+                            {
+                                "name": "HORNY",
+                                "key": "V8",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 7
+                                }
+                            },
+                            {
+                                "name": "LP_PV",
+                                "key": "V9",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 8
+                                }
+                            },
+                            {
+                                "name": "HP_MV",
+                                "key": "V10",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 9
+                                }
+                            },
+                            {
+                                "name": "HP_DV",
+                                "key": "V11",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 10
+                                }
+                            },
+                            {
+                                "name": "HP_FV",
+                                "key": "V12",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 11
+                                }
+                            },
+                            {
+                                "name": "LO_PV",
+                                "key": "V13",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 12
+                                }
+                            },
+                            {
+                                "name": "F_PV",
+                                "key": "V14",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 13
+                                }
+                            },
+                            {
+                                "name": "V15",
+                                "key": "V15",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 14
+                                }
+                            },
+                            {
+                                "name": "V16",
+                                "key": "V16",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 15
+                                }
+                            },
+                            {
+                                "name": "V17",
+                                "key": "V17",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 16
+                                }
+                            },
+                            {
+                                "name": "V18",
+                                "key": "V18",
+                                "type": "boolV2",
+                                "opcua": {
+                                    "path": "/Objects/1:manual_control/1:valve_states",
+                                    "index": 17
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Triggers",
+                        "type": "folder",
+                        "values": [
+                            {
+                                "name": "Primary Sequence Trigger",
+                                "key": "TRIG_PRIMARY_SEQ",
+                                "type": "toggle",
+                                "opcua": {
+                                    "path": "/Objects/1:triggers/1:sequence_trigger"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "Sequences": [
+                {
+                    "name": "Primary Sequence",
+                    "key": "primary",
+                    "connection": "opcua",
+                    "opcua": {
+                        "trigger_path": "/Objects/1:triggers/1:sequence_trigger"
+                    },
+                    "outputs": [
+                        {
+                            "key": "V1",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 0,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve1"
+                            }
+                        },
+                        {
+                            "key": "V2",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 1,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve2"
+                            }
+                        },
+                        {
+                            "key": "V3",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 2,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve3"
+                            }
+                        },
+                        {
+                            "key": "V4",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 3,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve4"
+                            }
+                        },
+                        {
+                            "key": "V5",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 4,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve5"
+                            }
+                        },
+                        {
+                            "key": "V6",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 5,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve6"
+                            }
+                        },
+                        {
+                            "key": "V7",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 6,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve7"
+                            }
+                        },
+                        {
+                            "key": "V8",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 7,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve8"
+                            }
+                        },
+                        {
+                            "key": "V9",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 8,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve9"
+                            }
+                        },
+                        {
+                            "key": "V10",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 9,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve10"
+                            }
+                        },
+                        {
+                            "key": "V11",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 10,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve11"
+                            }
+                        },
+                        {
+                            "key": "V12",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 11,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve12"
+                            }
+                        },
+                        {
+                            "key": "V13",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 12,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve13"
+                            }
+                        },
+                        {
+                            "key": "V14",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 13,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve14"
+                            }
+                        },
+                        {
+                            "key": "V15",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 14,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve15"
+                            }
+                        },
+                        {
+                            "key": "V16",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 15,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_valve16"
+                            }
+                        },
+                        {
+                            "key": "V17",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 16,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_230valve1"
+                            }
+                        },
+                        {
+                            "key": "V18",
+                            "opcua": {
+                                "initial_state_path": "/Objects/1:sequence/1:sequence_initial_valve_states",
+                                "initial_state_index": 17,
+                                "delay_vector_path": "/Objects/1:sequence/1:sequence_delay_vector/1:delay_vector_230valve2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Redline Sequence",
+                    "key": "redline",
+                    "connection": "opcua",
+                    "outputs": [
+                        {
+                            "name": "V1",
+                            "key": "V1",
+                            "opcua": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "V2",
+                            "key": "V2",
+                            "opcua": {
+                                "path": ""
+                            }
+                        }
+                    ]
+                }
+            ],
+            "Redlines": []
+        },
+        {
+            "name": "RPC",
+            "key": "RPC",
+            "type": "tcp",
+            "description": "Control and monitor remote pressure control system",
+            "openport": 10002,
+            "Source": {
+                "ip": "192.168.1.200",
+                "port": 10002
+            },
+            "datapoints": [
+                {
+                    "label": "LO_RPC_EN",
+                    "name": "LO_RPC_EN",
+                    "key": "LO_RPC_EN",
+                    "tcp": {
+                        "parsestr": "<ELOX:{}>"
+                    },
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "bool",
+                            "format": "bool",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "LO_RPC_ABS",
+                    "name": "LO_RPC_ABS",
+                    "key": "LO_RPC_ABS",
+                    "tcp": {
+                        "parsestr": "<DLOX:{}>"
+                    },
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "deg",
+                            "format": "float",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "F_RPC_EN",
+                    "name": "F_RPC_EN",
+                    "key": "F_RPC_EN",
+                    "tcp": {
+                        "parsestring": "<EFU:{}>"
+                    },
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "bool",
+                            "format": "bool",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "F_RPC_ABS",
+                    "name": "F_RPC_ABS",
+                    "key": "F_RPC_ABS",
+                    "tcp": {
+                        "parsestring": "<DFU:{}>"
+                    },
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "deg",
+                            "format": "float",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                }
+            ],
+            "commands": [
+                {}
+            ]
+        }
+    ]
+}

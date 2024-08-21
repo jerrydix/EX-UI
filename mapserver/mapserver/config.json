@@ -1,0 +1,35 @@
+{
+    "options": {
+        "paths": {
+            "root": "",
+            "fonts": "fonts",
+            "sprites": "sprites",
+            "styles": "styles",
+            "mbtiles": "data"
+        },
+        "formatEncoding": {
+            "png": 6,
+            "jpeg": 80,
+            "webp": 90
+        }
+    },
+    "styles": {
+        "basic": {
+            "style": "basic.json",
+            "tilejson": {
+                "type": "overlay",
+                "bounds": [
+                    0,
+                    40,
+                    31,
+                    90
+                ]
+            }
+        }
+    },
+    "data": {
+        "europe-vector": {
+            "mbtiles": "europe.mbtiles"
+        }
+    }
+}

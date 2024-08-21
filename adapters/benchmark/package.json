@@ -1,0 +1,19 @@
+{
+    "name": "ex-ui-benchmark",
+    "version": "2.0.0",
+    "description": "Benchmarking adapter for OpenMCT. Varies amount of data points sent per second from 10 to 144",
+    "main": "adapter.js",
+    "scripts": {
+        "test": "node adapter.js"
+    },
+    "author": "Antonio Steiger",
+    "license": "ISC",
+    "dependencies": {
+        "fs": "",
+        "https": "^1.0.0",
+        "mathjs": "",
+        "minimist": "",
+        "path": "^0.12.7",
+        "ws": ""
+    }
+}

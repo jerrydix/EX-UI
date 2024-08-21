@@ -1,0 +1,210 @@
+.launch-button {
+    align-items: center;
+    background: red;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 5rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+    border-style: solid;
+    border-width: 20px;
+}
+
+.sequence-step {
+    display: flex;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.sequence-step > .sequence-action-button {
+    display: none;
+}
+
+.sequence-step:hover > .sequence-action-button {
+    display: block;
+    padding-right: 8px;
+    color: #00bbfa;
+}
+
+.sequence-step > .sequence-step-label {
+    display: block;
+}
+
+.sequence-step:hover > .sequence-step-label {
+    display: none;
+}
+
+.sequence-step.off {
+    background-color: #BD5C2C;
+}
+
+.sequence-step.on {
+    background-color: #109719;
+}
+
+.tick-label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-left: 2px solid #aaa;
+    padding-left: 5px;
+}
+
+.plus-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: grey
+}
+
+.overlay-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: black;
+    opacity: 0.85;
+    display: flex;
+}
+
+.overlay-edit-dialog {
+    margin: auto;
+    background-color: white;
+    border-radius: 1.5rem;
+    padding: 15px;
+    color: black;
+}
+
+.overlay-edit-dialog>button {
+    background-color: #00bbfa;
+    color: white;
+    padding: 5px;
+    height: 2rem;
+}
+
+.overlay-edit-dialog>input {
+    padding: 5px;
+    height: 2rem;
+}
+
+.SequenceButton{
+    height: 100%;
+    width: 100%;
+    min-width: 10px;
+    min-height: 20px;
+    padding:0;
+    margin-right:1px;
+}
+
+.SequenceSteps{
+    padding:0;
+    margin:10em;
+    min-height: 50px;
+    min-width: 50px;
+    border-right:2px solid black;
+}
+
+.TableActionButton{
+    min-width: 10px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 40px;
+}
+
+.TableActionButton > img{
+    max-width: 100%;
+    max-height: 100%;   
+}
+
+.redline-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.redline-dialog-content {
+    background-color: #393939;
+    width: 100%;
+    padding: 10px;
+    max-width: 400px;
+    position: relative;
+    border-radius: 0.3rem;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  cursor: pointer;
+}
+
+$primary-color: #00bbfa;
+$primary-hover-color: darken($primary-color, 10%);
+$text-color: #fff;
+$border-radius: 0.3rem;
+$padding: 10px 10px;
+
+@mixin button-styles($bg-color, $text-color, $hover-bg-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  border-radius: $border-radius;
+  padding: $padding;
+  width: 15%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  float: right;
+  justify-content: center;
+  display: flex;
+  
+
+  &:hover {
+    background-color: $hover-bg-color;
+  }
+}
+
+.add-button {
+  @include button-styles($primary-color, $text-color, $primary-hover-color);
+}
+
+#timeHeader{
+    max-width: 50px;
+}
+
+#TimeInputWrap{
+    max-width: 50px;
+}
+#TimeInputWrap > input{
+    max-width:100px;
+}

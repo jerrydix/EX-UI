@@ -1,0 +1,22 @@
+{
+  "name": "ex-ui-tcp",
+  "version": "2.0.0",
+  "description": "EX-UI TCP Server connects to TCP data sources and relays data to EX-UI over websockets.",
+  "main": "adapter.js",
+  "scripts": {
+    "test": "node adapter.js",
+    "start": "node adapter.js"
+  },
+  "author": "Antonio Steiger",
+  "license": "ISC",
+  "dependencies": {
+    "dgram": "^1.0.1",
+    "fs": "",
+    "https": "^1.0.0",
+    "minimist": "",
+    "moment": "",
+    "net": "^1.0.2",
+    "path": "^0.12.7",
+    "ws": ""
+  }
+}

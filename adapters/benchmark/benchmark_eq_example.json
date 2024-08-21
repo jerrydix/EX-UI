@@ -1,0 +1,147 @@
+{    
+    "title": "Equipment Configuration",
+    "description": "Examplary Benchmark Configuration containing four benchmark datasources",
+    "README": "sampleinterval defines time between data points sent from each source; Only one benchmark data point is accessed per source, any more will not be accessed",
+    "datasources": [
+        {
+            "name": "Benchmark1",
+            "key": "bm1",
+            "type": "benchmark",
+            "description": "Development Tool; Sends data points at specified rate.",
+            "destport": 9003,
+            "sampleinterval": 50,
+            "datapoints": [
+                {
+                    "name": "Benchmark",
+                    "key": "bm1.benchmark",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "float",
+                            "min": -5,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",                          
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Benchmark2",
+            "key": "bm2",
+            "type": "benchmark",
+            "description": "Development Tool; Sends data points at specified rate.",
+            "destport": 9004,
+            "sampleinterval": 50,
+            "datapoints": [
+                {
+                    "name": "Benchmark",
+                    "key": "bm2.benchmark",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "float",
+                            "min": -5,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",                          
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Benchmark3",
+            "key": "bm3",
+            "type": "benchmark",
+            "description": "Development Tool; Sends data points at specified rate.",
+            "destport": 9005,
+            "sampleinterval": 50,
+            "datapoints": [
+                {
+                    "name": "Benchmark",
+                    "key": "bm3.benchmark",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "float",
+                            "min": -5,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",                          
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Benchmark4",
+            "key": "bm4",
+            "type": "benchmark",
+            "description": "Development Tool; Sends data points at specified rate.",
+            "destport": 9006,
+            "sampleinterval": 50,
+            "datapoints": [
+                {
+                    "name": "Benchmark",
+                    "key": "bm4.benchmark",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "float",
+                            "min": -5,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",                          
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+.l-shell__app-logo {
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    //currently, the exui logo is only correctly transferred into the docker container
+    //if it is used in a stylesheet somewhere. This is likely due to webpack; TODO
+    background: url('assets/images/exui_logo.svg') center no-repeat;
+    background-size: contain; //This ensures the logo does not get clipped; ~Antonio
+    padding: $interiorMargin 50px $interiorMargin 50px
+}

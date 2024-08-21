@@ -1,0 +1,41 @@
+.C-Table_wrap{
+    height:100%;
+}
+
+.C-Table_wrap > *{
+    vertical-align: middle;
+}
+.c-fl_wrap{
+    height: 90%;
+}
+.Paswd_wrap{
+    height: 100%;
+    display: inline;
+}
+.Paswd_wrap > * {
+    display:inline-block;
+    *display:inline;
+    vertical-align: top;
+}
+.Paswd_wrap > h1{
+    margin-top: 2%;
+    margin-right: 5%;
+    margin-bottom: 0;
+}
+.Paswd_wrap > input{
+    margin-top: 3%;
+}
+#SendButton{
+    background-color: #00bbfa;
+}
+#SendButton:hover{
+        background-color: #0035f3;
+}
+
+#SendButton:active{
+    background-color: #07c800;
+}
+
+#SendButtonRed{
+    background-color: #fa0000;
+}

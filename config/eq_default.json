@@ -1,0 +1,41 @@
+{
+    "title": "Equipment Configuration",
+    "description": "Default Placeholder Equipment Configuration File",
+    "README": "If you are seeing this and not a configuration file you wrote, something must have gone wrong when you specified its location and name. Did you include its file extension, .json?",
+    "computers": [
+        {
+            "name": "EX-UI Webserver",
+            "ip": "127.0.0.1",
+            "type": "manager"
+        }
+    ],
+    "DNS": {
+        "useHTTPS": "True",
+        "subdomain": "",
+        "maindomain": "exui.de",
+        "email": "info@exui.de",
+        "_acme-challenge": "3MfsCUIk6jaz2707radkAsjGDOMUDMyj12Qynz8xEgg",
+        "internal-ips": [
+            "127.0.0.1",
+            "10.0.0.0/24",
+            "192.168.0.0/24",
+            "192.168.1.0/24"
+        ],
+        "forwarders": [
+            "1.1.1.2",
+            "1.0.0.2"
+        ]
+    },
+    "map": {
+        "README":"This section defines the map to be served by the local mapserver set useLocal mapserver to true to activate it and the name of the map to the filename stored in /mapserver/mapserver/data",
+        "MapFileName": "europe.mbtiles",
+        "useLocalMapserver": "False",
+        "Bounds": [
+            0,
+            40,
+            31,
+            90
+        ]
+    },
+    "datasources": []
+}

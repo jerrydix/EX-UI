@@ -1,0 +1,383 @@
+{
+    "title": "Equipment Configuration",
+    "description": "Generic Description describing for what specific test this configuration is used etc.",
+    "README": "Comments in json files are not allowed, so any meta information should be included here.",
+    "computers": [
+        {
+            "name": "Main",
+            "ip": "192.168.0.226",
+            "type": "manager"
+        }
+    ],
+    "DNS": {
+        "useHTTPS": "True",
+        "subdomain": "",
+        "maindomain": "exui.de",
+        "email": "info@exui.de",
+        "_acme-challenge": "3MfsCUIk6jaz2707radkAsjGDOMUDMyj12Qynz8xEgg",
+        "internal-ips": [
+            "127.0.0.1",
+            "10.0.0.0/24",
+            "192.168.0.0/24",
+            "192.168.1.0/24"
+        ],
+        "forwarders": [
+            "1.1.1.2",
+            "1.0.0.2"
+        ]
+    },
+    "map": {
+        "README": "This section defines the map to be served by the local mapserver set useLocal mapserver to true to activate it and the name of the map to the filename stored in /mapserver/mapserver/data",
+        "MapFileName": "europe.mbtiles",
+        "useLocalMapserver": "False",
+        "Bounds": [
+            0,
+            40,
+            31,
+            90
+        ]
+    },
+    "datasources": [
+        {
+            "name": "Benchmark",
+            "key": "bm",
+            "type": "benchmark",
+            "numreplica": 2,
+            "description": "Development Tool; Sends data points at specified rate.",
+            "destport": 9001,
+            "sampleinterval": 50,
+            "datapoints": [
+                {
+                    "name": "Benchmark",
+                    "key": "bm.benchmark",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "float",
+                            "min": -5,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "SFC",
+            "key": "sfc",
+            "type": "TCP",
+            "description": "Secondary Flight Computer: AltiMax G4",
+            "pollcommand": "Zs",
+            "pollrate": 1,
+            "serialport": {
+                "path": "/dev/ttyUSB0",
+                "baudRate": 38400,
+                "dataBits": 8,
+                "stopBits": 2,
+                "parity": "none",
+                "lock": false
+            },
+            "delimiter": "=",
+            "destport": 9002,
+            "sourceport": 10001,
+            "ip": "127.0.0.1",
+            "timeout": 5000,
+            "datapoints": [
+                {
+                    "name": "Ambient Pressure",
+                    "key": "sfc.apress",
+                    "label": "bpress ",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "Pascal",
+                            "format": "integer",
+                            "min": 20000,
+                            "max": 103000,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": " Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Vertical Acceleration",
+                    "key": "sfc.acc",
+                    "label": "G",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "g",
+                            "format": "float",
+                            "formatString": "%0.2f",
+                            "min": -10,
+                            "max": 10,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": " Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Supply Voltage",
+                    "key": "sfc.vin",
+                    "label": "V0",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "volt",
+                            "format": "float",
+                            "min": 6,
+                            "max": 13,
+                            "hints": {
+                                "range": 5
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": " Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Pyro 1 Voltage",
+                    "key": "sfc.vpyro1",
+                    "label": "V1",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "volt",
+                            "format": "float",
+                            "min": 6,
+                            "max": 13,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": " Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Pyro 2 Voltage",
+                    "key": "sfc.vpyro2",
+                    "label": "V2",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "volt",
+                            "format": "float",
+                            "min": 6,
+                            "max": 13,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": " Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Pyro 3 Voltage",
+                    "key": "sfc.vpyro3",
+                    "label": "V3",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "volt",
+                            "format": "float",
+                            "min": 6,
+                            "max": 13,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": " Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Pyro 1 Continuity",
+                    "key": "sfc.cpyro1",
+                    "label": "IGN4",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 2048,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": " Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Pyro 2 Continuity",
+                    "key": "sfc.cpyro2",
+                    "label": "IGN3",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 2048,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": " Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Pyro 3 Continuity",
+                    "key": "sfc.cpyro3",
+                    "label": "IGN2",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 2048,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Log",
+                    "key": "sfc.log",
+                    "label": "log",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "string"
+                        },
+                        {
+                            "key": "utc",
+                            "name": " Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "Video": [
+        {
+            "numreplica": 2,
+            "name": "IP_Cams",
+            "type": "video_IP",
+            "description": "Low latency video stream",
+            "http_port": 8082,
+            "Port": 8002,
+            "additional_URL": "/stream/player/",
+            "streams": [
+                {
+                    "CAM0": {
+                        "url": "rtsp://192.168.0.185:1935/h264_ulaw.sdp",
+                        "url_Cam": "rtsp://admin:electronics1@192.168.0.20:554/cam/realmonitor?channel=1&subtype=0",
+                        "url_test": "rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4"
+                    }
+                },
+                {
+                    "CAM1": {
+                        "url": "rtsp://admin:electronics1@192.168.0.21:554/cam/realmonitor?channel=1&subtype=0"
+                    }
+                }
+            ],
+            "destport": 9000
+        }
+    ]
+}

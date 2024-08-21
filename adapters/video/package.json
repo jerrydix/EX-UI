@@ -1,0 +1,19 @@
+{
+  "name": "udp_aprs",
+  "version": "1.0.0",
+  "description": "An UDP adapter to connect DXLAPRS toolchain to EX-UI",
+  "main": "adapter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Moritz Eisert",
+  "license": "ISC",
+  "dependencies": {
+    "dgram": "^1.0.1",
+    "fs": "^0.0.1-security",
+    "minimist": "^1.2.8",
+    "node-fetch": "^3.2.10",
+    "path": "^0.12.7",
+    "ws": "^8.9.0"
+  }
+}

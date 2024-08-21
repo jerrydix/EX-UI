@@ -1,0 +1,54 @@
+.buttonOuterContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonInnerContainer {
+    width: 13em;
+    height: 6em;
+    display: flex;
+}
+
+.commandButton {
+	font-weight: bold;
+	font-size: x-large;
+	border: 3px solid #bbb;
+    height: 100%;
+    flex: 1;
+	text-align: center;
+	cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.commandButtonRight {
+    border-radius: 0% 25% 25% 0;
+}
+
+.commandButtonRight > span {
+    margin-left: 0.8em;
+}
+
+.commandButtonLeft {
+    border-radius: 25% 0 0% 25%;
+}
+
+.commandButtonLeft > span {
+    margin-right: 0.8em;
+}
+
+.ledIndicator {
+    position: absolute;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	height: 4em;
+	width: 4em;
+	background-color: #0f0;
+	border-radius: 50%;
+	display: inline-block;
+    border: 3px solid black;
+}

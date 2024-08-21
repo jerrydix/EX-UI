@@ -1,0 +1,12 @@
+{    
+    "title": "Equipment Configuration",
+    "description": "Default Placeholder Equipment Configuration File",
+    "README": "If you are seeing this and not a configuration file you wrote, something must have gone wrong when you specified its location and name. Did you include its file extension, .json?",
+    "computers": [
+        {
+            "name": "EX-UI Webserver",
+            "localIP": "127.0.0.1"
+        }
+    ],
+    "datasources": []
+}

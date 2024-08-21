@@ -1,0 +1,19 @@
+{
+  "name": "gps-webserver",
+  "version": "1.0.0",
+  "description": "An server to serve the GPS_websites and manage their connections to the sources",
+  "main": "adapter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node adapter.js"
+  },
+  "author": "Moritz Eisert",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "httpa": "^1.0.1",
+    "https": "^1.0.0",
+    "minimist": "^1.2.6"
+  }
+}

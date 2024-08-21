@@ -1,0 +1,21 @@
+{
+  "name": "contorll",
+  "version": "1.0.0",
+  "description": "",
+  "main": "API.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Moritz Eisert",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "minimist": "^1.2.8",
+    "path": "^0.12.7",
+    "redis": "^4.6.8",
+    "timers": "^0.1.1",
+    "ws": "^8.14.1"
+  }
+}

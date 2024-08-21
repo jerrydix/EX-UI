@@ -1,0 +1,2847 @@
+{
+    "title": "Equipment Configuration",
+    "description": "Generic Description describing for what specific test this configuration is used etc.",
+    "README": "Comments in json files are not allowed, so any meta information should be included here.",
+    "computers": [
+        {
+            "name": "Main",
+            "ip": "192.168.1.8",
+            "type": "manager"
+        }
+    ],
+    "DNS": {
+        "useHTTPS": "True",
+        "subdomain": "",
+        "maindomain": "exui.de",
+        "email": "info@exui.de",
+        "_acme-challenge": "5o_f1wyt_kZrcco0_UrAyiPd7rOYbpKPwcBer2z2Ybg",
+        "internal-ips": [
+            "127.0.0.1",
+            "10.0.0.0/24",
+            "192.168.0.0/24",
+            "192.168.1.0/24"
+        ],
+        "forwarders": [
+            "8.8.8.8",
+            "8.8.8.8"
+        ]
+    },
+    "map": {
+        "MapFileName": "europe.mbtiles",
+        "useLocalMapserver": "False",
+        "Bounds": [
+            0,
+            40,
+            31,
+            90
+        ]
+    },
+    "Video": [
+        {
+            "numreplica": 1,
+            "name": "IP_Cams",
+            "type": "video_IP",
+            "description": "Low latency video stream",
+            "http_port": 8082,
+            "Port": 8102,
+            "additional_URL": "/stream/player/",
+            "streams": [
+                {
+                    "CAM1": {
+                        "name": "PadCam_1",
+                        "URL_name": "CAM1",
+                        "url": "rtsp://admin:electronics1@192.168.1.20:554/cam/realmonitor?channel=1&subtype=0"
+                    }
+                },
+                {
+                    "CAM2": {
+                        "name": "PadCam_2",
+                        "URL_name": "CAM2",
+                        "url": "rtsp://admin:electronics1@192.168.1.21:554/cam/realmonitor?channel=1&subtype=0"
+                    }
+                }
+            ]
+        },
+        {
+            "numreplica": 2,
+            "name": "FlightCams",
+            "type": "video_IP",
+            "description": "Low latency video stream",
+            "http_port": 8083,
+            "Port": 8103,
+            "additional_URL": "/stream/player/",
+            "streams": [
+                {
+                    "CAM1": {
+                        "name": "Side",
+                        "URL_name": "CAM1",
+                        "url": "rtsp://root:admin@192.168.1.10/axis-media/media.amp?camera=1"
+                    }
+                },
+                {
+                    "CAM2": {
+                        "name": "ChuteCam",
+                        "URL_name": "CAM2",
+                        "url": "rtsp://root:admin@192.168.1.10/axis-media/media.amp?camera=2"
+                    }
+                },
+                {
+                    "CAM3": {
+                        "name": "Angled",
+                        "URL_name": "CAM3",
+                        "url": "rtsp://root:admin@192.168.1.10/axis-media/media.amp?camera=3"
+                    }
+                }
+            ]
+        }
+    ],
+    "TrackingAntenna": {
+        "name": "WTW tracking Antenna",
+        "numreplica": 2,
+        "key": "Tracking",
+        "type": "WTW",
+        "description": "WTW antenna reciving tracking information from GPS",
+        "destport": 8239,
+        "sourceport": 8100,
+        "timeout": 5000,
+        "srcip": "exui.de",
+        "destip": "192.168.1.69",
+        "delimiter": ":",
+        "datapoints": [
+            {
+                "name": "GPS",
+                "label": "LAT",
+                "GPS": {
+                    "delimiter": [
+                        "N",
+                        "S",
+                        "E",
+                        "W"
+                    ],
+                    "dataorder": [
+                        "lat",
+                        "long"
+                    ],
+                    "decimal": "."
+                }
+            },
+            {
+                "name": "height",
+                "label": "ALT"
+            }
+        ]
+    },
+    "datasources": [
+        {
+            "name": "PFC_TEL",
+            "key": "PFC_TEL",
+            "type": "tcp",
+            "description": "Gathers PFC Data over TEL",
+            "destport": 9001,
+            "commandport": 10001,
+            "ip": "192.168.1.23",
+            "sourceport": 8000,
+            "delimiter": ":",
+            "maxretries": 4,
+            "timeout": 2000,
+            "datapoints": [
+                {
+                    "name": "PFC_TEL_GPS",
+                    "label": "LAT",
+                    "numreplica": 1,
+                    "adapter": "locat2d",
+                    "destport": 9001,
+                    "LaunchSite": [
+                        48.26721,
+                        11.670525
+                    ],
+                    "GPS": {
+                        "delimiter": [
+                            "N",
+                            "S",
+                            "E",
+                            "W",
+                            "O"
+                        ],
+                        "dataorder": [
+                            "lat",
+                            "long"
+                        ]
+                    },
+                    "key": "PFC_TEL.gps",
+                    "values": [
+                        {
+                            "key": "gps",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "string",
+                            "min": -5,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "PFC_TEL_Orientation",
+                    "adapter": "orient3d",
+                    "key": "PFC_TEL.o3d.data",
+                    "label": "QUAT",
+                    "WS": {
+                        "delimiter": [
+                            "n",
+                            ","
+                        ],
+                        "dataorder": [
+                            "int:quat_w",
+                            "int:quat_x",
+                            "int:quat_y",
+                            "int:quat_z"
+                        ]
+                    },
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "string",
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ],
+                    "destport": 9003
+                },
+                {
+                    "label": "RSSI",
+                    "name": "RSSI",
+                    "key": "PFC_TEL.rssi",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "m",
+                            "format": "integer",
+                            "min": -100,
+                            "max": 1300,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "ALT",
+                    "name": "Altitude",
+                    "key": "PFC_TEL.alt",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "m",
+                            "format": "float",
+                            "min": 0,
+                            "max": 200000,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "VEL",
+                    "name": "Vertical velocity",
+                    "key": "PFC_TEL.vel",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "m/s",
+                            "format": "float",
+                            "min": 0,
+                            "max": 200000,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "PRESS",
+                    "name": "Baro Pressure",
+                    "key": "PFC_TEL.press",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "Pa",
+                            "format": "float",
+                            "min": -100,
+                            "max": 1300,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "States",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "FIX",
+                            "name": "Fixtype",
+                            "key": "PFC_TEL.fix",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "-",
+                                    "format": "integer",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "S",
+                            "name": "Flight State",
+                            "key": "PFC_TEL.s",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "-",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LARM",
+                            "name": "Ready Flight",
+                            "key": "PFC_TEL.larm",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "-",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 1,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "DDACT",
+                            "name": "Dummy data Active",
+                            "key": "PFC_TEL.ddact",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "-",
+                                    "format": "integer",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "NOSE",
+                            "name": "Nosecone separated",
+                            "key": "PFC_TEL.nose",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "-",
+                                    "format": "integer",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Pressure",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "ADS1",
+                            "name": "Helium Tank",
+                            "key": "PFC_TEL.ads1",
+                            "values": [
+                                {
+                                    "calib": "18747*x-74.4323",
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "mA",
+                                    "format": "float",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "ADS2",
+                            "name": "Lox Tank",
+                            "key": "PFC_TEL.ads2",
+                            "values": [
+                                {
+                                    "calib": "3759.88*x-14.9658",
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "mA",
+                                    "format": "float",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Acceleration",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "ACx",
+                            "name": "Acceleration X-axis",
+                            "key": "PFC_TEL.acx",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "mg",
+                                    "format": "integer",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "ACy",
+                            "name": "Acceleration Y-axis",
+                            "key": "PFC_TEL.acy",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "mg",
+                                    "format": "integer",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "ACz",
+                            "name": "Acceleration Z-axis",
+                            "key": "PFC_TEL.acz",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "mg",
+                                    "format": "integer",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "HIGH-G",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "HGx",
+                            "name": "HIGH G X-axis",
+                            "key": "PFC_TEL.hgx",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "g",
+                                    "format": "float",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HGy",
+                            "name": "HIGH G Y-axis",
+                            "key": "PFC_TEL.hgy",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "g",
+                                    "format": "float",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "HGz",
+                            "name": "HIGH G Z-axis",
+                            "key": "PFC_TEL.hgz",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "g",
+                                    "format": "float",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Voltage",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "VOLT24",
+                            "name": "V 24V Rail",
+                            "key": "PFC_TEL.volt24",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "V",
+                                    "format": "float",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "VOLT5",
+                            "name": "V 5V Rail",
+                            "key": "PFC_TEL.volt5",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "V",
+                                    "format": "float",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "VOLT_S",
+                            "name": "V Supply",
+                            "key": "PFC_TEL.volt_s",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "V",
+                                    "format": "float",
+                                    "min": -100,
+                                    "max": 1300,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "PFC",
+            "key": "PFC",
+            "type": "tcp",
+            "description": "Gathers PFC Data",
+            "destport": 9002,
+            "commandport": 10002,
+            "ip": "192.168.1.200",
+            "sourceport": 10002,
+            "delimiter": ":",
+            "readycommand": "CMDACK",
+            "sendtimeout": 2000,
+            "maxretries": 4,
+            "timeout": 2000,
+            "pswd": "cb9a1b515cb629c7b1f7e4e9acc64112a21fd81c3649eb5893b53ef687feca27",
+            "CommandLength": 8,
+            "datapoints": [
+                {
+                    "name": "PFC_GPS",
+                    "label": "LAT",
+                    "numreplica": 1,
+                    "adapter": "locat2d",
+                    "LaunchSite": [
+                        48.26721,
+                        11.670525
+                    ],
+                    "destport": 9002,
+                    "GPS": {
+                        "delimiter": [
+                            "N",
+                            "S",
+                            "E",
+                            "W",
+                            "O"
+                        ],
+                        "dataorder": [
+                            "lat",
+                            "long"
+                        ]
+                    },
+                    "key": "PFC.gps",
+                    "values": [
+                        {
+                            "key": "gps",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "string",
+                            "min": -5,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "PFC_Orientation",
+                    "adapter": "orient3d",
+                    "key": "PFC.o3d.data",
+                    "label": "QUAT",
+                    "WS": {
+                        "delimiter": [
+                            "n",
+                            ","
+                        ],
+                        "dataorder": [
+                            "int:quat_w",
+                            "int:quat_x",
+                            "int:quat_y",
+                            "int:quat_z"
+                        ]
+                    },
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "string",
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ],
+                    "destport": 9004
+                },
+                {
+                    "label": "GPSALT",
+                    "name": "GPS Altitude",
+                    "key": "PFC.gpsalt",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "m",
+                            "format": "float",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "ALT",
+                    "name": "Altitude",
+                    "key": "PFC.alt",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "m",
+                            "format": "float",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "VEL",
+                    "name": "Vertical velocity",
+                    "key": "PFC.vel",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "m/s",
+                            "format": "float",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "LOG",
+                    "name": "LOG Messages",
+                    "key": "PFC.log",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "-",
+                            "format": "string",
+                            "min": 0,
+                            "max": 200000,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "States",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "S",
+                            "name": "Flight State",
+                            "key": "PFC.state",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "-",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LARM",
+                            "name": "Ready Flight",
+                            "key": "PFC.larm",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "-",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "LDET",
+                            "name": "Umbilical connection",
+                            "key": "PFC.ldet",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "-",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "FIX",
+                            "name": "FIX Type",
+                            "key": "PFC.fix",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "-",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Temperature",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "T1",
+                            "name": "TC_F_Tank",
+                            "key": "PFC.T1",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "\u00b0C",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "T2",
+                            "name": "TC_LOX_VENTURI",
+                            "key": "PFC.T2",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "\u00b0C",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "T3",
+                            "name": "TC_LOX_Tank",
+                            "key": "PFC.T3",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "\u00b0C",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "T4",
+                            "name": "TC_F_Manifold",
+                            "key": "PFC.T4",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "\u00b0C",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Pressure",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "ADS1",
+                            "name": "P_CC",
+                            "key": "PFC.ADS1",
+                            "values": [
+                                {
+                                    "calib": "16.32706*x-11.01709",
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "ADS2",
+                            "name": "P_LO_MF",
+                            "key": "PFC.ADS2",
+                            "values": [
+                                {
+                                    "calib": "16.27867*x-10.95803",
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "ADS3",
+                            "name": "P_F_Tank",
+                            "key": "PFC.ADS3",
+                            "values": [
+                                {
+                                    "calib": "41.39053*x-26.10501",
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "ADS4",
+                            "name": "P_LO_Tank",
+                            "key": "PFC.ADS4",
+                            "values": [
+                                {
+                                    "calib": "41.54326*x-26.26274",
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "ADS5",
+                            "name": "P_HP",
+                            "key": "PFC.ADS5",
+                            "values": [
+                                {
+                                    "calib": "144.39287*x-89.93248",
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "bar",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Voltage_Suply",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "VSUP",
+                            "name": "V_Supply",
+                            "key": "PFC.vsup",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "V",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V24V",
+                            "name": "V 24V Rail",
+                            "key": "PFC.v24v",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "V",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V5V",
+                            "name": "V_5V_Rail",
+                            "key": "PFC.v5v",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "V",
+                                    "format": "float",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Valves",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "V1",
+                            "name": "LOX_MV_NC",
+                            "key": "PFC.V1",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "raw",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V2",
+                            "name": "LOX_EV_NO",
+                            "key": "PFC.V2",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "raw",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V3",
+                            "name": "F_MV_NC",
+                            "key": "PFC.V3",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "raw",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V4",
+                            "name": "F_EV_NO",
+                            "key": "PFC.V4",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "raw",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V5",
+                            "name": "IGNITER",
+                            "key": "PFC.V5",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "raw",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "V6",
+                            "name": "--",
+                            "key": "PFC.V6",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "raw",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Pyro_CONT",
+                    "type": "folder",
+                    "values": [
+                        {
+                            "label": "P1C",
+                            "name": "Pyro_Cont_1",
+                            "key": "PFC.p1c",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "raw",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P2C",
+                            "name": "Pyro_Cont_2",
+                            "key": "PFC.p2c",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "raw",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "label": "P3C",
+                            "name": "Pyro Cont 3",
+                            "key": "PFC.p3c",
+                            "values": [
+                                {
+                                    "key": "value",
+                                    "name": "Value",
+                                    "unit": "raw",
+                                    "format": "integer",
+                                    "min": 0,
+                                    "max": 5,
+                                    "hints": {
+                                        "range": 1
+                                    }
+                                },
+                                {
+                                    "key": "utc",
+                                    "name": "Time",
+                                    "format": "utc",
+                                    "hints": {
+                                        "domain": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "Controlls": {
+                "Inputs": [
+                    {
+                        "name": "EXUI Setup",
+                        "type": "folder",
+                        "values": [
+                            {
+                                "name": "Start TEL",
+                                "key": "PFC.TEL",
+                                "type": "bool",
+                                "default": 0
+                            },
+                            {
+                                "name": "Change_Tel_FREQ",
+                                "key": "PFC.TELFRQSET",
+                                "type": "bool",
+                                "default": 0
+                            },
+                            {
+                                "name": "TEL_FREQ [TABLE]",
+                                "key": "PFC.TELFREQ",
+                                "type": "integer",
+                                "inputtype": "number",
+                                "max": 32,
+                                "min": 0,
+                                "range": 1
+                            },
+                            {
+                                "name": "Start EXUI",
+                                "key": "PFC.EXUI",
+                                "type": "bool"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Get all Sensors",
+                        "key": "PFC.Sensor",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "Launch Controll",
+                        "type": "folder",
+                        "values": [
+                            {
+                                "name": "SET_LAUNCH_READY",
+                                "key": "PFC.larm",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "LAUNCH",
+                                "key": "PFC.LNC",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "LAUNCH Abort",
+                                "key": "PFC.LNCAB",
+                                "type": "bool"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Sequences",
+                        "type": "folder",
+                        "values": [
+                            {
+                                "name": "Safe_State",
+                                "key": "PFC.SFst",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "Sequence_INFO ",
+                                "key": "PFC.EQINF",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "RUN_Sequences",
+                                "type": "folder",
+                                "values": [
+                                    {
+                                        "name": "Sequence_HOTFIRE ",
+                                        "key": "PFC.SEQHFR",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "name": "Sequence_IGNITON_Stage ",
+                                        "key": "PFC.SEQIGN",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "name": "Sequence_LOX_CF ",
+                                        "key": "PFC.SEQLOX",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "name": "Sequence_ETH_CF ",
+                                        "key": "PFC.SEQETH",
+                                        "type": "bool"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Sequence_Abort ",
+                                "key": "PFC.SEQABORT",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "LOAD_Sequences",
+                                "type": "folder",
+                                "values": [
+                                    {
+                                        "name": "Sequence_LOAD ",
+                                        "key": "PFC.SEQLOAD",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "name": "Sequence_LOAD_Complete ",
+                                        "key": "PFC.SEQFINLOAD",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "name": "Abort_Sequence_LOAD ",
+                                        "key": "PFC.SEQLOADAB",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "name": "Disable_REdline",
+                                        "key": "PFC.REDLDIS",
+                                        "type": "bool"
+                                    },
+                                    {
+                                        "name": "Sequence_NUM_[#]",
+                                        "key": "PFC.SEQNUM",
+                                        "type": "integer",
+                                        "inputtype": "number",
+                                        "max": 4,
+                                        "min": 0,
+                                        "range": 1
+                                    },
+                                    {
+                                        "name": "Readline_NUM_[#]",
+                                        "key": "PFC.REDNUM",
+                                        "type": "integer",
+                                        "inputtype": "number",
+                                        "max": 9,
+                                        "min": 0,
+                                        "range": 1
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Launch Setup",
+                        "type": "folder",
+                        "values": [
+                            {
+                                "name": "Launch Altitude [m]",
+                                "key": "PFC.LaunchAlt",
+                                "type": "integer",
+                                "inputtype": "number",
+                                "max": 9999,
+                                "min": 0,
+                                "range": 1
+                            },
+                            {
+                                "name": "Launch Temperature [K]",
+                                "key": "PFC.LaunchTemp",
+                                "type": "integer",
+                                "inputtype": "number",
+                                "max": 999
+                            },
+                            {
+                                "name": "Start Nav",
+                                "key": "PFC.NAV",
+                                "type": "bool",
+                                "default": 0
+                            },
+                            {
+                                "name": "BME Altitude [m]",
+                                "key": "PFC.BMEAlt",
+                                "type": "integer",
+                                "inputtype": "number",
+                                "max": 9999,
+                                "min": 0,
+                                "range": 1
+                            },
+                            {
+                                "name": "BME Temperature [K]",
+                                "key": "PFC.BMETemp",
+                                "type": "integer",
+                                "inputtype": "number",
+                                "max": 999
+                            },
+                            {
+                                "name": "Set_BME_PARAM",
+                                "key": "PFC.BME",
+                                "type": "bool",
+                                "default": 0
+                            },
+                            {
+                                "name": "MainChuteHight",
+                                "key": "PFC.ChuteSend",
+                                "type": "bool",
+                                "default": 0
+                            },
+                            {
+                                "name": "Set Main Chute Hight",
+                                "key": "PFC.ChuteHight",
+                                "type": "integer",
+                                "inputtype": "number",
+                                "max": 9999
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Valves",
+                        "type": "folder",
+                        "values": [
+                            {
+                                "name": "LOX_MV_NC",
+                                "key": "PFC.V1",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "LOX_EV_NO",
+                                "key": "PFC.V2",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "F_MV_NC",
+                                "key": "PFC.V3",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "F_EV_NO",
+                                "key": "PFC.V4",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "IGNITER",
+                                "key": "PFC.V5",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "Valve6",
+                                "key": "PFC.V6",
+                                "type": "bool"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Video controll",
+                        "type": "folder",
+                        "values": [
+                            {
+                                "name": "Video1",
+                                "key": "PFC.Video1",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "Video2",
+                                "key": "PFC.Video2",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "Video3",
+                                "key": "PFC.Video3",
+                                "type": "bool"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Pyro controll",
+                        "type": "folder",
+                        "values": [
+                            {
+                                "name": "Pyro1",
+                                "key": "PFC.Pyro1",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "Pyro2",
+                                "key": "PFC.Pyro2",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "Pyro3",
+                                "key": "PFC.Pyro3",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "Pyro_Arm",
+                                "key": "PFC.PyroARM",
+                                "type": "bool"
+                            }
+                        ]
+                    }
+                ],
+                "Commands": [
+                    {
+                        "name": "Start Nav",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.NAV"
+                        },
+                        "Command": [
+                            "A",
+                            "key:PFC.LaunchAlt:4",
+                            "key:PFC.LaunchTemp:3"
+                        ]
+                    },
+                    {
+                        "name": "Ready Flight",
+                        "type": "string",
+                        "execution": {
+                            "type": true,
+                            "key": "PFC.LARM"
+                        },
+                        "Command": [
+                            "B",
+                            "key:PFC.larm",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "LAUNCH",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.LNC"
+                        },
+                        "Command": [
+                            "C",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "LAUNCH Abort",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.LNCAB"
+                        },
+                        "Command": [
+                            "D",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Video controll",
+                        "type": "string",
+                        "execution": {
+                            "type": true,
+                            "key": "PFC.Video1",
+                            "supportHOLD": true
+                        },
+                        "Command": [
+                            "E",
+                            "key:PFC.Video1",
+                            "key:PFC.Video2",
+                            "key:PFC.Video3",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Start Exui GroundDownlink",
+                        "type": "string",
+                        "execution": {
+                            "type": true,
+                            "key": "PFC.EXUI"
+                        },
+                        "Command": [
+                            "F",
+                            "key:PFC.EXUI",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Start TEL",
+                        "type": "string",
+                        "execution": {
+                            "type": true,
+                            "key": "PFC.TEL"
+                        },
+                        "Command": [
+                            "G",
+                            "key:PFC.TEL",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Change TEL FR",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.TELFREQSET"
+                        },
+                        "Command": [
+                            "H",
+                            "key:PFC.TELFREQ:2",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Set Main Chute hight",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.ChuteSend"
+                        },
+                        "Command": [
+                            "I",
+                            "key:PFC.ChuteHight:4",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Get all Sensors",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.Sensor"
+                        },
+                        "Command": [
+                            "J",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Set BME",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.BME"
+                        },
+                        "Command": [
+                            "K",
+                            "key:PFC.BMEAlt:4",
+                            "key:PFC.BMETemp:3"
+                        ]
+                    },
+                    {
+                        "name": "ARM Pyro",
+                        "type": "string",
+                        "execution": {
+                            "type": true,
+                            "key": "PFC.PyroARM"
+                        },
+                        "Command": [
+                            "L",
+                            "key:PFC.PyroARM",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Test Pyros",
+                        "type": "string",
+                        "execution": {
+                            "type": true,
+                            "key": "PFC.Pyro1"
+                        },
+                        "Command": [
+                            "M",
+                            "key:PFC.Pyro1",
+                            "key:PFC.Pyro2",
+                            "key:PFC.Pyro3",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Valve",
+                        "type": "string",
+                        "execution": {
+                            "type": true,
+                            "key": "PFC.V1",
+                            "supportHOLD": true
+                        },
+                        "Command": [
+                            "N",
+                            "key:PFC.V1",
+                            "key:PFC.V2",
+                            "key:PFC.V3",
+                            "key:PFC.V4",
+                            "key:PFC.V5",
+                            "key:PFC.V6",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Safe State",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SFst"
+                        },
+                        "Command": [
+                            "O",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Sequence Info",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SEQINF"
+                        },
+                        "Command": [
+                            "P",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Sequence Hotfire",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SEQHFR"
+                        },
+                        "Command": [
+                            "Q",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Sequence IGN Stage",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SEQIGN"
+                        },
+                        "Command": [
+                            "R",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Sequence LOXCF",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SEQLOX"
+                        },
+                        "Command": [
+                            "S",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Sequence ETHCF",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SEQETH"
+                        },
+                        "Command": [
+                            "T",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Sequence Abort",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SEQABORT"
+                        },
+                        "Command": [
+                            "U",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Sequence Load",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SEQLOAD"
+                        },
+                        "Command": [
+                            "V",
+                            "key:PFC.SEQNUM:1",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Swquence load complete",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SEQFINLOAD"
+                        },
+                        "Command": [
+                            "X",
+                            "key:PFC.SEQNUM:1",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Swquence Abort Load",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.SEQLOADAB"
+                        },
+                        "Command": [
+                            "Y",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "name": "Readline Diable",
+                        "type": "string",
+                        "execution": {
+                            "type": false,
+                            "key": "PFC.REDLDIS"
+                        },
+                        "Command": [
+                            "Z",
+                            "key:PFC.SEQNUM:1",
+                            "key:PFC.REDNUM:1",
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    }
+                ],
+                "Sequence": {
+                    "Outputs": [
+                        {
+                            "name": "LOX_MV_NC",
+                            "key": "PFC.V1"
+                        },
+                        {
+                            "name": "LOX_EV_NC",
+                            "key": "PFC.V2"
+                        },
+                        {
+                            "name": "F_MV_NC",
+                            "key": "PFC.V3"
+                        },
+                        {
+                            "name": "F_EV_NO",
+                            "key": "PFC.V4"
+                        },
+                        {
+                            "name": "IGNITER",
+                            "key": "PFC.V5"
+                        },
+                        {
+                            "name": "---",
+                            "key": "PFC.V6"
+                        }
+                    ],
+                    "WriteToTarget": {
+                        "AbortCommand": "Y0000000",
+                        "CommandType": "string",
+                        "Commands": [
+                            [
+                                "W",
+                                "key:time:7"
+                            ],
+                            [
+                                "W",
+                                "key:PFC.V1",
+                                "key:PFC.V2",
+                                "key:PFC.V3",
+                                "key:PFC.V4",
+                                "key:PFC.V5",
+                                "key:PFC.V6",
+                                "0"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "name": "RS232",
+            "key": "RS232",
+            "type": "tcp",
+            "description": "Controlls RS232 Relais",
+            "destport": 9003,
+            "commandport": 10003,
+            "ip": "192.168.1.232",
+            "sourceport": 5000,
+            "delimiter": " ",
+            "readycommand": "-",
+            "maxretries": 3,
+            "sendtimeout": 100,
+            "CompleteDataatonce": true,
+            "keepAlive": {
+                "command": "12",
+                "interval": 100000
+            },
+            "pswd": "cb9a1b515cb629c7b1f7e4e9acc64112a21fd81c3649eb5893b53ef687feca27",
+            "datapoints": [
+                {
+                    "name": "RS232_CH1 Relais",
+                    "key": "RS232.CH1",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "36V Enable",
+                    "key": "RS232.CH2",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "HP_QD AUF",
+                    "key": "RS232.CH3",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "HP_QD ZU",
+                    "key": "RS232.CH4",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "LOX_QD_AUF",
+                    "key": "RS232.CH5",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "LOX_QD_ZU",
+                    "key": "RS232.CH6",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "E-Match Test",
+                    "key": "RS232.CH7",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Igniter Arming",
+                    "key": "RS232.CH8",
+                    "values": [
+                        {
+                            "key": "value",
+                            "name": "Value",
+                            "unit": "raw",
+                            "format": "integer",
+                            "min": 0,
+                            "max": 5,
+                            "hints": {
+                                "range": 1
+                            }
+                        },
+                        {
+                            "key": "utc",
+                            "name": "Time",
+                            "format": "utc",
+                            "hints": {
+                                "domain": 1
+                            }
+                        }
+                    ]
+                }
+            ],
+            "Controlls": {
+                "Inputs": [
+                    {
+                        "name": "36V enable",
+                        "key": "RS232.CH2",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "HP_QD AUF",
+                        "key": "RS232.CH3",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "HP_QD ZU",
+                        "key": "RS232.CH4",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "LOX_QD AUF",
+                        "key": "RS232.CH5",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "LOX_QD ZU",
+                        "key": "RS232.CH6",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "E-Match Test",
+                        "key": "RS232.CH7",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "Igniter Arming",
+                        "key": "RS232.CH8",
+                        "type": "bool"
+                    }
+                ],
+                "Commands": [
+                    {
+                        "name": "36V disconect",
+                        "type": "hex",
+                        "execution": {
+                            "type": true,
+                            "key": "RS232.CH2"
+                        },
+                        "Command": [
+                            "0xFF",
+                            ",",
+                            "0x02",
+                            ",",
+                            "0x0",
+                            "key:RS232.CH2"
+                        ]
+                    },
+                    {
+                        "name": "HP_QD_AUF",
+                        "type": "hex",
+                        "execution": {
+                            "type": true,
+                            "key": "RS232.CH3"
+                        },
+                        "Command": [
+                            "0xFF",
+                            ",",
+                            "0x03",
+                            ",",
+                            "0x0",
+                            "key:RS232.CH3"
+                        ]
+                    },
+                    {
+                        "name": "HP_QD_ZU",
+                        "type": "hex",
+                        "execution": {
+                            "type": true,
+                            "key": "RS232.CH4"
+                        },
+                        "Command": [
+                            "0xFF",
+                            ",",
+                            "0x04",
+                            ",",
+                            "0x0",
+                            "key:RS232.CH4"
+                        ]
+                    },
+                    {
+                        "name": "LOX_QD_AUF",
+                        "type": "hex",
+                        "execution": {
+                            "type": true,
+                            "key": "RS232.CH5"
+                        },
+                        "Command": [
+                            "0xFF",
+                            ",",
+                            "0x05",
+                            ",",
+                            "0x0",
+                            "key:RS232.CH5"
+                        ]
+                    },
+                    {
+                        "name": "LOX_QD_ZU",
+                        "type": "hex",
+                        "execution": {
+                            "type": true,
+                            "key": "RS232.CH6"
+                        },
+                        "Command": [
+                            "0xFF",
+                            ",",
+                            "0x06",
+                            ",",
+                            "0x0",
+                            "key:RS232.CH6"
+                        ]
+                    },
+                    {
+                        "name": "Arming Test",
+                        "type": "hex",
+                        "execution": {
+                            "type": true,
+                            "key": "RS232.CH7"
+                        },
+                        "Command": [
+                            "0xFF",
+                            ",",
+                            "0x07",
+                            ",",
+                            "0x0",
+                            "key:RS232.CH7"
+                        ]
+                    },
+                    {
+                        "name": "Igniter Arming",
+                        "type": "hex",
+                        "execution": {
+                            "type": true,
+                            "key": "RS232.CH8"
+                        },
+                        "Command": [
+                            "0xFF",
+                            ",",
+                            "0x08",
+                            ",",
+                            "0x0",
+                            "key:RS232.CH8"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
